@@ -17,3 +17,6 @@ https://towardsdatascience.com/understanding-u-net-61276b10f360
 ConvNeXt Source:
 https://github.com/yassouali/pytorch-segmentation/blob/8b8e3ee20a3aa733cb19fc158ad5d7773ed6da7f/models/segnet.py#L9
 
+Pre-Processing Data for CNN Source:
+https://towardsdatascience.com/how-to-apply-a-cnn-from-pytorch-to-your-images-18515416bba1
+
