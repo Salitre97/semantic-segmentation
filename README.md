@@ -1,5 +1,7 @@
-# semantic-segmentation w/MRI
-Final Project for Intro To Deep Learning ECGR 5106
+# semantic-segmentation 
+***Final Project for Intro To Deep Learning ECGR 5106:*** Use segmentation to determine and locate tumor in MRI scan
+
+   
 
 Path for training a semantic segmentation model with encoder-decoder:
 1. Pretrain CNN backbone (ConVNeXt) and Optimize
