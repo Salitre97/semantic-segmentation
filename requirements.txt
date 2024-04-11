@@ -1,0 +1,8 @@
+pycocotools
+json
+torch 
+torchvision
+shutil
+PIL
+numpy
+matplotlib
