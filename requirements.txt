@@ -1,8 +1,6 @@
-pycocotools
-json
-torch 
+torch
 torchvision
-shutil
-PIL
-numpy
+albumentations
 matplotlib
+pycocotools
+Pillow
