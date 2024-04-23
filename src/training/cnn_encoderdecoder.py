@@ -39,6 +39,24 @@ image_transform = transforms.Compose([
     transforms.Lambda(lambda x: x.clamp(0, 1))
 ])
 
+class DiceLoss(torch.nn.Module):
+    def __init__(self):
+        super(DiceLoss, self).__init__()
+
+    def forward(self, logits, targets, smooth=1e-6):
+        # Compute intersection
+        intersection = torch.sum(logits * targets)
+        
+        # Compute Dice coefficient
+        dice_coefficient = (2. * intersection + smooth) / (
+            torch.sum(logits) + torch.sum(targets) + smooth
+        )
+        
+        # Compute Dice loss
+        dice_loss = 1.0 - dice_coefficient
+        
+        return dice_loss
+
 class BrainDataset(Dataset):
     def __init__(self, root_dir, transform=None):
         self.root_dir = root_dir
@@ -185,22 +203,30 @@ model = CNN_EncoderDecoder()
 model, train_loss_history, valid_loss_history = train(model, train_loader, valid_loader, num_epochs=2, learning_rate=0.001)
 
 
-torch.save(model.state_dict(), base_dir + 'cnn_encoderdecoder.pth')
-model.load_state_dict(torch.load(base_dir + 'cnn_encoderdecoder.pth'))
+# Save the trained model
+base_dir = '/home/csalitre/school/ecgr-5106/final-project/'
+torch.save(model.state_dict(), os.path.join(base_dir, 'cnn_encoderdecoder.pth'))
 
-image_path = os.path.join(base_dir, "semantic-segmentation/test2/images/27_jpg.rf.b2a2b9811786cc32a23c46c560f04d07.jpg")
-image = Image.open(image_path).convert("L")
-input_image = image_transform(image).unsqueeze(0).to(device)  
-
-model = CNN_EncoderDecoder().to(device)
-
+# Load the trained model
+model_path = os.path.join(base_dir, 'cnn_encoderdecoder.pth')
+model = CNN_EncoderDecoder()
+model.load_state_dict(torch.load(model_path))
 model.eval()
 
+# Load and preprocess the image
+image_path = os.path.join(base_dir, "semantic-segmentation/test2/images/27_jpg.rf.b2a2b9811786cc32a23c46c560f04d07.jpg")
+image = Image.open(image_path).convert("L")
+input_image = image_transform(image).unsqueeze(0)  # Add batch dimension
+
+# Run inference
 with torch.no_grad():
     output = model(input_image)
+
+# Convert output tensor to numpy array
 output_np = output.squeeze(0).cpu().numpy()
 
-# In[1]
+
+# In[2]
 import matplotlib.pyplot as plt
 # Plot the input image
 plt.figure(figsize=(10, 5))
@@ -216,4 +242,3 @@ plt.title('Segmentation Mask')
 plt.axis('off')
 
 plt.show()
-# %%
