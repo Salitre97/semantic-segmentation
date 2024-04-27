@@ -20,10 +20,8 @@ import skimage.draw
 import tifffile 
 import shutil
 
-if torch.cuda.is_available():
-    device = torch.device('cuda')
-else:
-    device = torch.device('cpu')
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
 
 # cristian path 
 base_dir = '/home/csalitre/school/ecgr-5106/final-project/' 
