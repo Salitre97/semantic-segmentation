@@ -4,10 +4,9 @@
    
 
 Path for training a semantic segmentation model with encoder-decoder:
-1. Test CNN Encoder-Decoder
-2. Add skip connections
-3. Add Regularization:
-         -BatchNorm, Dropout, L1, L2
+1. Simple CNN Encoder Decoder
+2. Deep CNN Encoder Decoder
+3. ResNet Encoder Decoder w/ Batchnorm & Dropout
 
 ![image](https://github.com/Salitre97/semantic-segmentation-MRI/assets/126845001/cc443ac3-e937-4d66-97bc-b243564a4443)
 Image Source: https://www.google.com/url?sa=i&url=https%3A%2F%2Fcnvrg.io%2Fsemantic-segmentation%2F&psig=AOvVaw3C6hrrIJRAKAsP_RVwhUMH&ust=1712790866826000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLD4jq2htoUDFQAAAAAdAAAAABAE
